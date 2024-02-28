@@ -1,9 +1,19 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import CartIcon from "../../public/assets/icon-cart.svg";
 import ProfileAvatar from "../../public/assets/image-avatar.png";
 import { useState } from "react";
 export default function Header() {
   const [burgerMenu, setBurgerMenu] = useState<string>("invisible");
+
+  //windows scroll
+  function StopScrolling() {
+    if (burgerMenu === "visible") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "scroll";
+    }
+  }
+  StopScrolling();
   return (
     <>
       <Fullscreen burgermenu={burgerMenu}></Fullscreen>
@@ -44,6 +54,33 @@ export default function Header() {
     </>
   );
 }
+const AnimationOfNavbar = keyframes`
+   from {
+    left: -250px;
+  }
+  to {
+    left: 0;
+  }
+
+`;
+const AnimationOfFirstDiv = keyframes`
+  from {
+ transform: rotate(0deg);
+  }
+  to{
+  transform: rotate(45deg);
+
+  }
+`;
+const AnimationOfThirdDiv = keyframes`
+  from {
+ transform: rotate(0deg);
+  }
+  to{
+  transform: rotate(-45deg);
+
+  }
+`;
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -72,9 +109,13 @@ const BurgerMenu = styled.div<{ burgermenu: string }>`
 const DivOne = styled.div<{ burgermenu: string }>`
   width: ${(props) => (props.burgermenu === "visible" ? "27px" : "13px")};
   height: 3px;
-  background-color: red;
-  transform: ${(props) =>
-    props.burgermenu === "visible" ? "rotate(45deg)" : ""};
+  background-color: rgba(105, 112, 125, 1);
+  animation: ${(props) =>
+    props.burgermenu === "visible"
+      ? css`
+          ${AnimationOfFirstDiv} 0.5s ease-in-out forwards
+        `
+      : "none"};
   position: ${(props) =>
     props.burgermenu === "visible" ? "relative" : "inherit"};
   top: ${(props) => (props.burgermenu === "visible" ? "7px" : "")};
@@ -83,7 +124,7 @@ const DivOne = styled.div<{ burgermenu: string }>`
 const DivTwo = styled.div<{ burgermenu: string }>`
   width: 27px;
   height: 3px;
-  background-color: red;
+  background-color: rgba(105, 112, 125, 1);
   transform: ${(props) =>
     props.burgermenu === "visible" ? "rotate(-45deg)" : ""};
   display: ${(props) => (props.burgermenu === "visible" ? "none" : "block")};
@@ -94,9 +135,13 @@ const DivThree = styled.div<{ burgermenu: string }>`
   height: 3px;
   position: relative;
   left: ${(props) => (props.burgermenu === "visible" ? "0" : "14px")};
-  background-color: red;
-  transform: ${(props) =>
-    props.burgermenu === "visible" ? "rotate(-45deg)" : ""};
+  background-color: rgba(105, 112, 125, 1);
+  animation: ${(props) =>
+    props.burgermenu === "visible"
+      ? css`
+          ${AnimationOfThirdDiv} 0.5s ease-in-out forwards
+        `
+      : ""};
 `;
 
 const Title = styled.h1``;
@@ -117,6 +162,7 @@ const ProfileIcon = styled.img`
 `;
 
 const Navbar = styled.div`
+  animation: ${AnimationOfNavbar} 0.4s linear;
   width: 250px;
   height: 100vh;
   position: fixed;
@@ -134,7 +180,7 @@ const Box = styled.ul`
 const Item = styled.li`
   list-style-type: none;
   font-size: 18px;
-  color: rgba(29, 32, 38, 1);
+  color: rgba(105, 112, 125, 1);
   line-height: 26px;
 `;
 const Fullscreen = styled.div<{ burgermenu: string }>`
@@ -145,6 +191,6 @@ const Fullscreen = styled.div<{ burgermenu: string }>`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  transition: max-height 0.5s ease-in-out;
+  height: ${(props) => (props.burgermenu === "visible" ? "100%" : "")};
+  z-index: 2;
 `;
