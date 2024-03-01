@@ -94,7 +94,7 @@ export default function Content(props: Types) {
           <AddToCartDiv>
             <Cart src={CartIcon} />
             <AddToCart
-              onClick={() => props.quantity > 1 && props.setAddToCart(true)}
+              onClick={() => props.quantity >= 1 && props.setAddToCart(true)}
             >
               Add to cart
             </AddToCart>

@@ -14,8 +14,7 @@ interface Types {
 export default function Header(props: Types) {
   const [burgerMenu, setBurgerMenu] = useState<string>("invisible");
   const [showCartDiv, setShowCartDiv] = useState<boolean>(false);
-  const [cartIsVisible, setCartIsVisible] = useState<boolean>(true);
-  console.log();
+
   const CartElement = (
     <>
       <CartMain>
@@ -84,9 +83,9 @@ export default function Header(props: Types) {
                 <CartP>Cart</CartP>
                 <Line />
               </HeaderDivInCart>
-              {props.quantity > 0 && cartIsVisible === true && CartElement}
-              {props.quantity > 0 && cartIsVisible === true && (
-                <CheckoutBtn onClick={() => setCartIsVisible(false)}>
+              {props.addToCart && CartElement}
+              {props.addToCart && (
+                <CheckoutBtn onClick={() => props.setAddToCart(false)}>
                   Checkout
                 </CheckoutBtn>
               )}
