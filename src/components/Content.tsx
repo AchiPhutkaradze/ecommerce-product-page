@@ -9,22 +9,26 @@ import ProductTwo from "../../public/assets/image-product-2.jpg";
 import ProductThree from "../../public/assets/image-product-3.jpg";
 import ProductFour from "../../public/assets/image-product-4.jpg";
 
-export default function Images() {
+interface Types {
+  quantity: number;
+  setQuantity: React.Dispatch<React.SetStateAction<number>>;
+  addToCart: boolean;
+  setAddToCart: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export default function Content(props: Types) {
   const [slide, setSlide] = useState<number>(1);
-  const [quantity, setQuantity] = useState<number>(0);
   console.log(slide);
 
   const productImages = [ProductOne, ProductTwo, ProductThree, ProductFour];
   //reset quantity
   let resetNumber = () => {
-    if (quantity < 1) {
-      setQuantity(1);
+    if (props.quantity < 0) {
+      props.setQuantity(0);
     }
-    if (quantity > 10) {
-      setQuantity(10);
+    if (props.quantity > 10) {
+      props.setQuantity(10);
     }
   };
-  resetNumber();
 
   //reset slide number
   useEffect(() => {
@@ -34,8 +38,14 @@ export default function Images() {
       setSlide(1);
     }
   }, [slide, productImages.length]);
- 
 
+  // reset addToCart state
+  function resetAddToCart() {
+    if (props.quantity < 1) {
+      props.setAddToCart(false);
+    }
+  }
+  resetAddToCart();
   return (
     <>
       <ImagesDiv>
@@ -69,15 +79,25 @@ export default function Images() {
       <LastBox>
         <CountDiv>
           <Minus>
-            <img src={MinusIcon} onClick={() => setQuantity(quantity - 1)} />
+            <img
+              src={MinusIcon}
+              onClick={() => props.setQuantity(props.quantity - 1)}
+            />
           </Minus>
-          <Quantity>{quantity}</Quantity>
-          <Plus src={PlusIcon} onClick={() => setQuantity(quantity + 1)} />
+          <Quantity>{props.quantity}</Quantity>
+          <Plus
+            src={PlusIcon}
+            onClick={() => props.setQuantity(props.quantity + 1)}
+          />
         </CountDiv>
         <AddBtn>
           <AddToCartDiv>
             <Cart src={CartIcon} />
-            <AddToCart>Add to cart</AddToCart>
+            <AddToCart
+              onClick={() => props.quantity > 1 && props.setAddToCart(true)}
+            >
+              Add to cart
+            </AddToCart>
           </AddToCartDiv>
         </AddBtn>
       </LastBox>
