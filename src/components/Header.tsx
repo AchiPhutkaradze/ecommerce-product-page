@@ -2,6 +2,7 @@ import styled, { keyframes, css } from "styled-components";
 import CartIcon from "../../public/assets/icon-cart.svg";
 import ProfileAvatar from "../../public/assets/image-avatar.png";
 import cartInsideImg from "../../public/assets/image-product-1-thumbnail.jpg";
+import iconTrash from "../../public/assets/icon-delete.svg";
 
 import { useState } from "react";
 
@@ -83,7 +84,18 @@ export default function Header(props: Types) {
                 <CartP>Cart</CartP>
                 <Line />
               </HeaderDivInCart>
-              {props.addToCart && CartElement}
+              {props.addToCart === false && (
+                <EmptyP>Your cart is empty.</EmptyP>
+              )}
+              <Chosen>
+                {props.addToCart && CartElement}
+                {props.addToCart && (
+                  <Trash
+                    src={iconTrash}
+                    onClick={() => props.setAddToCart(false)}
+                  />
+                )}
+              </Chosen>
               {props.addToCart && (
                 <CheckoutBtn onClick={() => props.setAddToCart(false)}>
                   Checkout
@@ -96,6 +108,14 @@ export default function Header(props: Types) {
     </>
   );
 }
+const Chosen = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const Trash = styled.img`
+  width: 14px;
+  height: 16px;
+`;
 const CartImg = styled.img`
   width: 50px;
   height: 50px;
@@ -251,8 +271,9 @@ const Box = styled.ul`
 const Item = styled.li`
   list-style-type: none;
   font-size: 18px;
-  color: rgba(105, 112, 125, 1);
+  color: #1d2026;
   line-height: 26px;
+  font-weight: 700;
 `;
 const Fullscreen = styled.div<{ burgermenu: string }>`
   opacity: ${(props) => (props.burgermenu === "visible" ? "0.5" : "1")};
@@ -285,6 +306,7 @@ const HeaderDivInCart = styled.div`
 const CartP = styled.p`
   font-size: 16px;
   line-height: 19.84px;
+  font-weight: 700;
   color: rgba(29, 32, 38, 1);
 `;
 const Line = styled.hr`
@@ -309,4 +331,13 @@ const CheckoutBtn = styled.button`
   border-radius: 8px;
   margin-top: 24px;
   text-align: center;
+`;
+const EmptyP = styled.p`
+  position: absolute;
+  bottom: 85px;
+  left: 111px;
+  line-height: 26px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #69707d;
 `;

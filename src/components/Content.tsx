@@ -30,6 +30,7 @@ export default function Content(props: Types) {
     }
   };
 
+  resetNumber();
   //reset slide number
   useEffect(() => {
     if (slide < 1) {
@@ -90,14 +91,10 @@ export default function Content(props: Types) {
             onClick={() => props.setQuantity(props.quantity + 1)}
           />
         </CountDiv>
-        <AddBtn>
+        <AddBtn onClick={() => props.quantity >= 1 && props.setAddToCart(true)}>
           <AddToCartDiv>
             <Cart src={CartIcon} />
-            <AddToCart
-              onClick={() => props.quantity >= 1 && props.setAddToCart(true)}
-            >
-              Add to cart
-            </AddToCart>
+            <AddToCart>Add to cart</AddToCart>
           </AddToCartDiv>
         </AddBtn>
       </LastBox>
@@ -145,6 +142,7 @@ const Text = styled.div`
 `;
 const Company = styled.p`
   line-height: 14.88px;
+  font-weight: 700;
   font-size: 12px;
   letter-spacing: 1.85px;
   color: rgba(255, 126, 27, 1);
@@ -154,7 +152,7 @@ const LimitedEdition = styled.h2`
   font-size: 28px;
   line-height: 32px;
   color: rgba(29, 32, 38, 1);
-  text-transform: uppercase;
+  font-weight: 700;
 `;
 const Describe = styled.span`
   font-size: 15px;
@@ -175,14 +173,20 @@ const PriceAndSale = styled.div`
 const Price = styled.h3`
   font-size: 28px;
   line-height: 35px;
+  font-weight: 700;
 `;
 const Sale = styled.div`
   width: 51px;
   height: 27px;
-  background-color: rgba(255, 126, 27, 1);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: rgba(255, 126, 27, 1);
+  border-radius: 8px;
+  background-color: #ffeee2;
+  line-height: 20px;
+  font-size: 16px;
+  font-weight: 700;
 `;
 const OldPrice = styled.p`
   font-size: 16px;
@@ -198,12 +202,15 @@ const CountDiv = styled.div`
   justify-content: space-around;
   padding-left: 24px;
 `;
-const Minus = styled.button``;
+const Minus = styled.button`
+  background-color: rgba(246, 248, 253, 1);
+`;
 const Plus = styled.img``;
 const Quantity = styled.p`
   font-size: 16px;
   line-height: 19.84px;
   color: rgba(29, 32, 38, 1);
+  font-weight: 700;
 `;
 const LastBox = styled.div`
   display: flex;
@@ -229,4 +236,5 @@ const AddToCart = styled.p`
   font-size: 16px;
   line-height: 20px;
   color: white;
+  font-weight: 700;
 `;
