@@ -16,19 +16,10 @@ export default function Header(props: Types) {
   const [burgerMenu, setBurgerMenu] = useState<string>("invisible");
   const [showCartDiv, setShowCartDiv] = useState<boolean>(false);
 
-  const CartElement = (
-    <>
-      <CartMain>
-        <OrderDesc>
-          <CartImg src={cartInsideImg} />
-          <Order>
-            Fall Limited Edition Sneakers $125.00 x {props.quantity}{" "}
-            <Sum>{`${props.quantity * 125}$`}</Sum>
-          </Order>
-        </OrderDesc>
-      </CartMain>
-    </>
-  );
+  const cartDate = {
+    Order: `Fall Limited Edition Sneakers $125.00 x ${props.quantity}`,
+    sum: `${props.quantity * 125}$`,
+  };
 
   //windows scroll
   function StopScrolling() {
@@ -88,7 +79,19 @@ export default function Header(props: Types) {
                 <EmptyP>Your cart is empty.</EmptyP>
               )}
               <Chosen>
-                {props.addToCart && CartElement}
+                {props.addToCart && (
+                  <>
+                    <CartMain>
+                      <OrderDesc>
+                        <CartImg src={cartInsideImg} />
+                        <Order>
+                          {cartDate.Order}
+                          <Sum>{cartDate.sum}</Sum>
+                        </Order>
+                      </OrderDesc>
+                    </CartMain>
+                  </>
+                )}
                 {props.addToCart && (
                   <Trash
                     src={iconTrash}
