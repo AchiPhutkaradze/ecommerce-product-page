@@ -10,7 +10,7 @@ interface Types {
 }
 export default function Content(props: Types) {
   return (
-    <>
+    <MainDiv>
       <Text>
         <Company>Sneaker Company</Company>
         <LimitedEdition>Fall Limited Edition Sneakers</LimitedEdition>
@@ -48,10 +48,15 @@ export default function Content(props: Types) {
           </AddToCartDiv>
         </AddBtn>
       </LastBox>
-    </>
+    </MainDiv>
   );
 }
 
+const MainDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 const Text = styled.div`
   padding: 24px;
   display: flex;

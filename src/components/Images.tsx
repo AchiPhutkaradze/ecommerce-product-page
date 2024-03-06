@@ -5,6 +5,10 @@ import Arrow from "../../public/assets/icon-next.svg";
 import ProductTwo from "../../public/assets/image-product-2.jpg";
 import ProductThree from "../../public/assets/image-product-3.jpg";
 import ProductFour from "../../public/assets/image-product-4.jpg";
+import FirstSmallProduct from "../../public/assets/image-product-1-thumbnail.jpg";
+import SecondSmallProduct from "../../public/assets/image-product-2-thumbnail.jpg";
+import ThirdSmallProduct from "../../public/assets/image-product-3-thumbnail.jpg";
+import FourthSmallProduct from "../../public/assets/image-product-4-thumbnail.jpg";
 
 interface Types {
   quantity: number;
@@ -57,6 +61,12 @@ export default function Images(props: Types) {
             <img src={Arrow} alt="" />
           </RightSLiderBtn>
         </Buttons>
+        <SmallImages>
+          <SmallImage src={FirstSmallProduct} onClick={() => setSlide(1)} />
+          <SmallImage src={SecondSmallProduct} onClick={() => setSlide(2)} />
+          <SmallImage src={ThirdSmallProduct} onClick={() => setSlide(3)} />
+          <SmallImage src={FourthSmallProduct} onClick={() => setSlide(4)} />
+        </SmallImages>
       </ImagesDiv>
     </>
   );
@@ -67,10 +77,15 @@ const ImagesDiv = styled.div`
   @media screen and (min-width: 1440px) {
     margin-top: 90px;
     position: relative;
+    flex-direction: column;
+    gap: 32px;
   }
 `;
 const Product = styled.img`
   width: 100%;
+  @media screen and (min-width: 1440px) {
+    border-radius: 5%;
+  }
 `;
 const Buttons = styled.div`
   display: flex;
@@ -78,6 +93,9 @@ const Buttons = styled.div`
   width: 100%;
   position: absolute;
   padding: 0 16px;
+  @media screen and (min-width: 1440px) {
+    display: none;
+  }
 `;
 const RightSLiderBtn = styled.button`
   width: 40px;
@@ -97,4 +115,14 @@ const LeftSLiderBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+const SmallImages = styled.div`
+  display: flex;
+  gap: 31px;
+`;
+
+const SmallImage = styled.img`
+  width: 88px;
+  height: 88px;
+  border-radius: 10%;
 `;
