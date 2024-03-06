@@ -9,3 +9,8 @@
 body {
   font-family: "Kumbh Sans", sans-serif;
 }
+@media screen and (min-width: 1440px) {
+  body {
+    padding: 28px 165px;
+  }
+}

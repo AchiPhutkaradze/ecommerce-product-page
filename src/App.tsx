@@ -4,7 +4,7 @@ import { useState } from "react";
 import Content from "./components/Content";
 function App() {
   const [quantity, setQuantity] = useState<number>(0);
-  const [addToCart, setAddToCart] = useState(false);
+  const [addToCart, setAddToCart] = useState(true);
 
   return (
     <>

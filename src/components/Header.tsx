@@ -3,7 +3,6 @@ import CartIcon from "../../public/assets/icon-cart.svg";
 import ProfileAvatar from "../../public/assets/image-avatar.png";
 import cartInsideImg from "../../public/assets/image-product-1-thumbnail.jpg";
 import iconTrash from "../../public/assets/icon-delete.svg";
-
 import { useState } from "react";
 
 interface Types {
@@ -15,11 +14,6 @@ interface Types {
 export default function Header(props: Types) {
   const [burgerMenu, setBurgerMenu] = useState<string>("invisible");
   const [showCartDiv, setShowCartDiv] = useState<boolean>(false);
-
-  const cartDate = {
-    Order: `Fall Limited Edition Sneakers $125.00 x ${props.quantity}`,
-    sum: `${props.quantity * 125}$`,
-  };
 
   //windows scroll
   function StopScrolling() {
@@ -59,6 +53,15 @@ export default function Header(props: Types) {
             </Navbar>
           )}
           <Title>sneakers</Title>
+          <NavbarDesk>
+            <Box>
+              <Item>Collections</Item>
+              <Item>Men</Item>
+              <Item>Women</Item>
+              <Item>About</Item>
+              <Item>Contact</Item>
+            </Box>
+          </NavbarDesk>
         </TitleAndNav>
         <CartAndProfile>
           <Cart
@@ -85,8 +88,9 @@ export default function Header(props: Types) {
                       <OrderDesc>
                         <CartImg src={cartInsideImg} />
                         <Order>
-                          {cartDate.Order}
-                          <Sum>{cartDate.sum}</Sum>
+                          Fall Limited Edition Sneakers $125.00 x{" "}
+                          {props.quantity}
+                          <Sum> {`${props.quantity * 125}$`}</Sum>
                         </Order>
                       </OrderDesc>
                     </CartMain>
@@ -181,12 +185,18 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   padding: 19px 24px 25px;
   position: relative;
+  @media screen and (min-width: 1440px) {
+    border-bottom: 1px solid #e4e9f2;
+  }
 `;
 
 const TitleAndNav = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
+  @media screen and (min-width: 1440px) {
+    gap: 56px;
+  }
 `;
 
 const BurgerMenu = styled.div<{ burgermenu: string }>`
@@ -197,6 +207,9 @@ const BurgerMenu = styled.div<{ burgermenu: string }>`
   height: 27px;
   width: 27px;
   justify-content: center;
+  @media screen and (min-width: 1440px) {
+    display: none;
+  }
 `;
 
 const DivOne = styled.div<{ burgermenu: string }>`
@@ -264,17 +277,31 @@ const Navbar = styled.div`
   top: 0;
   left: 0;
   z-index: 3;
+  @media screen and (min-width: 1440px) {
+    display: none;
+  }
+`;
+const NavbarDesk = styled.div`
+  display: none;
+  @media screen and (min-width: 1440px) {
+    display: flex;
+  }
 `;
 const Box = styled.ul`
   display: flex;
   flex-direction: column;
   padding: 92px 0 0 25px;
   gap: 20px;
+  @media screen and (min-width: 1440px) {
+    padding: 0;
+    flex-direction: row;
+    gap: 35px;
+  }
 `;
 const Item = styled.li`
   list-style-type: none;
   font-size: 18px;
-  color: #1d2026;
+  color: #69707d;
   line-height: 26px;
   font-weight: 700;
 `;

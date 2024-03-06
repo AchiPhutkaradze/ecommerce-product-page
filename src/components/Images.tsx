@@ -64,6 +64,10 @@ export default function Images(props: Types) {
 const ImagesDiv = styled.div`
   display: flex;
   align-items: center;
+  @media screen and (min-width: 1440px) {
+    margin-top: 90px;
+    position: relative;
+  }
 `;
 const Product = styled.img`
   width: 100%;
