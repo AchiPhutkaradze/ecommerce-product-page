@@ -9,6 +9,7 @@ import FirstSmallProduct from "../../public/assets/image-product-1-thumbnail.jpg
 import SecondSmallProduct from "../../public/assets/image-product-2-thumbnail.jpg";
 import ThirdSmallProduct from "../../public/assets/image-product-3-thumbnail.jpg";
 import FourthSmallProduct from "../../public/assets/image-product-4-thumbnail.jpg";
+import closeIcon from "../../public/assets/icon-close.svg";
 
 interface Types {
   quantity: number;
@@ -18,9 +19,12 @@ interface Types {
 }
 export default function Images(props: Types) {
   const [slide, setSlide] = useState<number>(1);
+  const [showZoomImg, setShowZoomImg] = useState(false);
+  console.log(showZoomImg);
   console.log(slide);
 
   const productImages = [ProductOne, ProductTwo, ProductThree, ProductFour];
+
   //reset quantity
   let resetNumber = () => {
     if (props.quantity < 0) {
@@ -48,10 +52,55 @@ export default function Images(props: Types) {
     }
   }
   resetAddToCart();
+
+  function StopScrolling() {
+    if (showZoomImg === true) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "scroll";
+    }
+  }
+  StopScrolling();
   return (
     <>
+      <Fullscreen zoom={showZoomImg} />
       <ImagesDiv>
-        <Product src={productImages[slide - 1]} />
+        <Product
+          src={
+            showZoomImg === false ? productImages[slide - 1] : productImages[0]
+          }
+          onClick={() => setShowZoomImg(true)}
+        />
+        {showZoomImg === true && (
+          <>
+            <Zoom zoom={showZoomImg}>
+              <IconClose
+                src={closeIcon}
+                onClick={() => setShowZoomImg(false)}
+              />
+
+              <Product src={productImages[slide - 1]} />
+              <SmallImages>
+                <SmallImage
+                  src={FirstSmallProduct}
+                  onClick={() => setSlide(1)}
+                />
+                <SmallImage
+                  src={SecondSmallProduct}
+                  onClick={() => setSlide(2)}
+                />
+                <SmallImage
+                  src={ThirdSmallProduct}
+                  onClick={() => setSlide(3)}
+                />
+                <SmallImage
+                  src={FourthSmallProduct}
+                  onClick={() => setSlide(4)}
+                />
+              </SmallImages>
+            </Zoom>
+          </>
+        )}{" "}
         <Buttons>
           <LeftSLiderBtn onClick={() => setSlide(slide - 1)}>
             <img src={Arrow} alt="" />
@@ -85,6 +134,9 @@ const Product = styled.img`
   width: 100%;
   @media screen and (min-width: 1440px) {
     border-radius: 5%;
+    cursor: zoom-in;
+    width: 550px;
+    height: 550px;
   }
 `;
 const Buttons = styled.div`
@@ -117,12 +169,48 @@ const LeftSLiderBtn = styled.button`
   justify-content: center;
 `;
 const SmallImages = styled.div`
-  display: flex;
-  gap: 31px;
+  display: none;
+  @media screen and (min-width: 1440px) {
+    display: flex;
+    gap: 31px;
+  }
 `;
 
 const SmallImage = styled.img`
   width: 88px;
   height: 88px;
   border-radius: 10%;
+`;
+
+const Zoom = styled.div<{ zoom: boolean }>`
+  display: ${(props) => (props.zoom === false ? "none" : "flex")};
+  flex-direction: column;
+  position: absolute;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: 50px;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  z-index: 2;
+  gap: 30px;
+  align-items: center;
+  z-index: 4;
+`;
+const IconClose = styled.img`
+  position: absolute;
+  width: 1pc;
+  top: -25px;
+  right: 0;
+  z-index: 5;
+`;
+const Fullscreen = styled.div<{ zoom: boolean }>`
+  opacity: ${(props) => (props.zoom === true ? "0.5" : "1")};
+  background-color: ${(props) => (props.zoom === true ? "black" : "")};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: ${(props) => (props.zoom === true ? "100%" : "")};
+  z-index: 3;
 `;

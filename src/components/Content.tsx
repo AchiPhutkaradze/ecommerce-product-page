@@ -56,6 +56,10 @@ const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: inherit;
+  @media screen and (min-width: 1440px) {
+    max-width: 445px;
+  }
 `;
 const Text = styled.div`
   padding: 24px;
@@ -76,6 +80,10 @@ const LimitedEdition = styled.h2`
   line-height: 32px;
   color: rgba(29, 32, 38, 1);
   font-weight: 700;
+  @media screen and (min-width: 1440px) {
+    font-size: 44px;
+    line-height: 48px;
+  }
 `;
 const Describe = styled.span`
   font-size: 15px;
@@ -87,6 +95,11 @@ const PriceDiv = styled.div`
   padding: 0 24px;
   justify-content: space-between;
   align-items: center;
+  @media screen and (min-width: 1440px) {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
 `;
 const PriceAndSale = styled.div`
   display: flex;
@@ -124,6 +137,9 @@ const CountDiv = styled.div`
   align-items: center;
   justify-content: space-around;
   padding-left: 24px;
+  @media screen and (min-width: 1440px) {
+    width: 157px;
+  }
 `;
 const Minus = styled.button`
   background-color: rgba(246, 248, 253, 1);
@@ -140,6 +156,9 @@ const LastBox = styled.div`
   flex-direction: column;
   gap: 16px;
   margin: 24px;
+  @media screen and (min-width: 1440px) {
+    flex-direction: row;
+  }
 `;
 const AddBtn = styled.button`
   width: 100%;
@@ -149,6 +168,9 @@ const AddBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media screen and (min-width: 1440px) {
+    width: 272px;
+  }
 `;
 const AddToCartDiv = styled.div`
   display: flex;

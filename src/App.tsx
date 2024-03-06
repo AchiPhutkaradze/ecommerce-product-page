@@ -42,5 +42,6 @@ const Container = styled.div`
     display: flex;
     padding: 0 48px;
     gap: 120px;
+    position: relative;
   }
 `;
