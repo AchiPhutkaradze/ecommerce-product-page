@@ -122,6 +122,9 @@ const Chosen = styled.div`
 const Trash = styled.img`
   width: 14px;
   height: 16px;
+  @media screen and (min-width: 1440px) {
+    cursor: pointer;
+  }
 `;
 const CartImg = styled.img`
   width: 50px;
@@ -261,11 +264,23 @@ const CartAndProfile = styled.div`
 
 const Cart = styled.img`
   width: 22px;
+  @media screen and (min-width: 1440px) {
+    cursor: pointer;
+  }
 `;
 
 const ProfileIcon = styled.img`
   width: 24px;
   height: 24px;
+  @media screen and (min-width: 1440px) {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    &:hover {
+      border: 1px solid #ff7e1b;
+      border-radius: 50%;
+    }
+  }
 `;
 
 const Navbar = styled.div`
@@ -304,6 +319,9 @@ const Item = styled.li`
   color: #69707d;
   line-height: 26px;
   font-weight: 700;
+  @media screen and (min-width: 1440px) {
+    cursor: pointer;
+  }
 `;
 const Fullscreen = styled.div<{ burgermenu: string }>`
   opacity: ${(props) => (props.burgermenu === "visible" ? "0.5" : "1")};
@@ -361,6 +379,9 @@ const CheckoutBtn = styled.button`
   border-radius: 8px;
   margin-top: 24px;
   text-align: center;
+  @media screen and (min-width: 1440px) {
+    cursor: pointer;
+  }
 `;
 const EmptyP = styled.p`
   position: absolute;

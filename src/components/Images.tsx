@@ -20,7 +20,7 @@ interface Types {
 export default function Images(props: Types) {
   const [slide, setSlide] = useState<number>(1);
   const [zoomedImg, setZoomedImg] = useState<boolean>(false);
-
+  console.log(zoomedImg);
   const productImages = [ProductOne, ProductTwo, ProductThree, ProductFour];
 
   //reset quantity
@@ -64,9 +64,7 @@ export default function Images(props: Types) {
       <Fullscreen zoom={zoomedImg} />
       <ImagesDiv>
         <Product
-          src={
-            zoomedImg === false ? productImages[slide - 1] : productImages[0]
-          }
+          src={productImages[slide - 1]}
           onClick={() => setZoomedImg(true)}
         />
         {zoomedImg === true && (
@@ -85,18 +83,22 @@ export default function Images(props: Types) {
               <Product src={productImages[slide - 1]} />
               <SmallImages>
                 <SmallImage
+                  slide1={slide}
                   src={FirstSmallProduct}
                   onClick={() => setSlide(1)}
                 />
                 <SmallImage
+                  slide2={slide}
                   src={SecondSmallProduct}
                   onClick={() => setSlide(2)}
                 />
                 <SmallImage
+                  slide3={slide}
                   src={ThirdSmallProduct}
                   onClick={() => setSlide(3)}
                 />
                 <SmallImage
+                  slide4={slide}
                   src={FourthSmallProduct}
                   onClick={() => setSlide(4)}
                 />
@@ -114,10 +116,26 @@ export default function Images(props: Types) {
           </RightSLiderBtn>
         </Buttons>
         <SmallImages>
-          <SmallImage src={FirstSmallProduct} onClick={() => setSlide(1)} />
-          <SmallImage src={SecondSmallProduct} onClick={() => setSlide(2)} />
-          <SmallImage src={ThirdSmallProduct} onClick={() => setSlide(3)} />
-          <SmallImage src={FourthSmallProduct} onClick={() => setSlide(4)} />
+          <SmallImage
+            slide1={slide}
+            src={FirstSmallProduct}
+            onClick={() => setSlide(1)}
+          />
+          <SmallImage
+            slide2={slide}
+            src={SecondSmallProduct}
+            onClick={() => setSlide(2)}
+          />
+          <SmallImage
+            slide3={slide}
+            src={ThirdSmallProduct}
+            onClick={() => setSlide(3)}
+          />
+          <SmallImage
+            slide4={slide}
+            src={FourthSmallProduct}
+            onClick={() => setSlide(4)}
+          />
         </SmallImages>
       </ImagesDiv>
     </>
@@ -172,6 +190,9 @@ const RightSLiderBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media screen and (min-width: 1440px) {
+    cursor: pointer;
+  }
 `;
 const LeftSLiderBtn = styled.button`
   width: 40px;
@@ -182,6 +203,9 @@ const LeftSLiderBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media screen and (min-width: 1440px) {
+    cursor: pointer;
+  }
 `;
 const SmallImages = styled.div`
   display: none;
@@ -191,26 +215,47 @@ const SmallImages = styled.div`
   }
 `;
 
-const SmallImage = styled.img`
+const SmallImage = styled.img<{
+  slide1?: number;
+  slide2?: number;
+  slide3?: number;
+  slide4?: number;
+}>`
   width: 88px;
   height: 88px;
   border-radius: 10%;
+  @media screen and (min-width: 1440px) {
+    opacity: ${(props) =>
+      props.slide1 === 1 ||
+      props.slide2 === 2 ||
+      props.slide3 === 3 ||
+      props.slide4 === 4
+        ? 0.3
+        : 1};
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 `;
 
 const Zoom = styled.div<{ zoom: boolean }>`
-  display: ${(props) => (props.zoom === false ? "none" : "flex")};
-  flex-direction: column;
-  position: absolute;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: 50px;
-  transform: translate(-50%, -50%);
-  border-radius: 5px;
-  z-index: 2;
-  gap: 30px;
-  align-items: center;
-  z-index: 4;
+  display: none;
+  @media screen and (min-width: 1440px) {
+    display: ${(props) => (props.zoom === false ? "none" : "flex")};
+    flex-direction: column;
+    position: absolute;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: 50px;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    z-index: 2;
+    gap: 30px;
+    align-items: center;
+    z-index: 4;
+  }
 `;
 const IconClose = styled.img`
   position: absolute;
@@ -218,14 +263,17 @@ const IconClose = styled.img`
   top: -25px;
   right: 0;
   z-index: 5;
+  cursor: pointer;
 `;
 const Fullscreen = styled.div<{ zoom: boolean }>`
-  opacity: ${(props) => (props.zoom === true ? "0.5" : "1")};
-  background-color: ${(props) => (props.zoom === true ? "black" : "")};
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: ${(props) => (props.zoom === true ? "100%" : "")};
-  z-index: 3;
+  @media screen and (min-width: 1440px) {
+    opacity: ${(props) => (props.zoom === true ? "0.5" : "1")};
+    background-color: ${(props) => (props.zoom === true ? "black" : "")};
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: ${(props) => (props.zoom === true ? "100%" : "")};
+    z-index: 3;
+  }
 `;

@@ -143,8 +143,15 @@ const CountDiv = styled.div`
 `;
 const Minus = styled.button`
   background-color: rgba(246, 248, 253, 1);
+  @media screen and (min-width: 1440px) {
+    cursor: pointer;
+  }
 `;
-const Plus = styled.img``;
+const Plus = styled.img`
+  @media screen and (min-width: 1440px) {
+    cursor: pointer;
+  }
+`;
 const Quantity = styled.p`
   font-size: 16px;
   line-height: 19.84px;
@@ -170,6 +177,7 @@ const AddBtn = styled.button`
   justify-content: center;
   @media screen and (min-width: 1440px) {
     width: 272px;
+    cursor: pointer;
   }
 `;
 const AddToCartDiv = styled.div`
