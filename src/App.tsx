@@ -43,5 +43,6 @@ const Container = styled.div`
     padding: 0 48px;
     gap: 120px;
     position: relative;
+    justify-content: center;
   }
 `;

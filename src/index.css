@@ -12,7 +12,5 @@ body {
 @media screen and (min-width: 1440px) {
   body {
     padding: 28px 165px 132px;
-    display: flex;
-    justify-content: center;
   }
 }

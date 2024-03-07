@@ -19,9 +19,7 @@ interface Types {
 }
 export default function Images(props: Types) {
   const [slide, setSlide] = useState<number>(1);
-  const [showZoomImg, setShowZoomImg] = useState(false);
-  console.log(showZoomImg);
-  console.log(slide);
+  const [zoomedImg, setZoomedImg] = useState<boolean>(false);
 
   const productImages = [ProductOne, ProductTwo, ProductThree, ProductFour];
 
@@ -54,7 +52,7 @@ export default function Images(props: Types) {
   resetAddToCart();
 
   function StopScrolling() {
-    if (showZoomImg === true) {
+    if (zoomedImg === true) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "scroll";
@@ -63,22 +61,27 @@ export default function Images(props: Types) {
   StopScrolling();
   return (
     <>
-      <Fullscreen zoom={showZoomImg} />
+      <Fullscreen zoom={zoomedImg} />
       <ImagesDiv>
         <Product
           src={
-            showZoomImg === false ? productImages[slide - 1] : productImages[0]
+            zoomedImg === false ? productImages[slide - 1] : productImages[0]
           }
-          onClick={() => setShowZoomImg(true)}
+          onClick={() => setZoomedImg(true)}
         />
-        {showZoomImg === true && (
+        {zoomedImg === true && (
           <>
-            <Zoom zoom={showZoomImg}>
-              <IconClose
-                src={closeIcon}
-                onClick={() => setShowZoomImg(false)}
-              />
-
+            <Zoom zoom={zoomedImg}>
+              <IconClose src={closeIcon} onClick={() => setZoomedImg(false)} />
+              <ButtonsForZoomedImg>
+                <LeftSLiderBtn onClick={() => setSlide(slide - 1)}>
+                  <img src={Arrow} alt="" />
+                </LeftSLiderBtn>
+                <RightSLiderBtn onClick={() => setSlide(slide + 1)}>
+                  {" "}
+                  <img src={Arrow} alt="" />
+                </RightSLiderBtn>
+              </ButtonsForZoomedImg>
               <Product src={productImages[slide - 1]} />
               <SmallImages>
                 <SmallImage
@@ -147,6 +150,18 @@ const Buttons = styled.div`
   padding: 0 16px;
   @media screen and (min-width: 1440px) {
     display: none;
+  }
+`;
+const ButtonsForZoomedImg = styled.div`
+  width: 100%;
+  position: absolute;
+  padding: 0 16px;
+  display: none;
+  @media screen and (min-width: 1440px) {
+    display: flex;
+    justify-content: space-between;
+    top: 250px;
+    width: 615px;
   }
 `;
 const RightSLiderBtn = styled.button`

@@ -325,7 +325,7 @@ const CartDiv = styled.div`
   right: -16px;
   z-index: 2;
   border-radius: 8px;
-  box-shadow: 10px 5px 5px red;
+  box-shadow: rgba(29, 32, 38, 0.5) 0px 20px 50px -20px;
   padding: 24px 24px 32px;
 `;
 const HeaderDivInCart = styled.div`
