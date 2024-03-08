@@ -24,7 +24,7 @@ export default function Header(props: Types) {
   }
   StopScrolling();
 
-  // reset addToCart state
+    // reset addToCart state
   function resetAddToCart() {
     if (props.quantity < 1) {
       props.setAddToCart(false);

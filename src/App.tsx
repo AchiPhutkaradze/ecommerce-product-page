@@ -15,7 +15,7 @@ function App() {
         setAddToCart={setAddToCart}
       />
       <Container>
-        <Images setAddToCart={setAddToCart} />
+        <Images />
         <Content
           quantity={quantity}
           setQuantity={setQuantity}

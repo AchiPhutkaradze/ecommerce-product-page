@@ -11,10 +11,7 @@ import ThirdSmallProduct from "../../public/assets/image-product-3-thumbnail.jpg
 import FourthSmallProduct from "../../public/assets/image-product-4-thumbnail.jpg";
 import closeIcon from "../../public/assets/icon-close.svg";
 
-interface Types {
-  setAddToCart: React.Dispatch<React.SetStateAction<boolean>>;
-}
-export default function Images(props: Types) {
+export default function Images() {
   const [slide, setSlide] = useState<number>(1);
   const [zoomedImg, setZoomedImg] = useState<boolean>(false);
   const [lastSelectedSlideNumber, setLastSelectedSlideNumber] =
