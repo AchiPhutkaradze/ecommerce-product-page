@@ -12,8 +12,6 @@ import FourthSmallProduct from "../../public/assets/image-product-4-thumbnail.jp
 import closeIcon from "../../public/assets/icon-close.svg";
 
 interface Types {
-  quantity: number;
-  setQuantity: React.Dispatch<React.SetStateAction<number>>;
   setAddToCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function Images(props: Types) {
@@ -38,17 +36,6 @@ export default function Images(props: Types) {
   //images
   const productImages = [ProductOne, ProductTwo, ProductThree, ProductFour];
 
-  //reset quantity
-  let resetNumber = () => {
-    if (props.quantity < 0) {
-      props.setQuantity(0);
-    }
-    if (props.quantity > 10) {
-      props.setQuantity(10);
-    }
-  };
-
-  resetNumber();
   //reset slide number
   useEffect(() => {
     if (slide < 1) {
@@ -57,14 +44,6 @@ export default function Images(props: Types) {
       setSlide(1);
     }
   }, [slide, productImages.length]);
-
-  // reset addToCart state
-  function resetAddToCart() {
-    if (props.quantity < 1) {
-      props.setAddToCart(false);
-    }
-  }
-  resetAddToCart();
 
   //
   function StopScrolling() {

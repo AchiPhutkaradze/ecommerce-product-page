@@ -7,7 +7,19 @@ interface Types {
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   setAddToCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 export default function Content(props: Types) {
+  //reset quantity
+  let resetNumber = () => {
+    if (props.quantity < 0) {
+      props.setQuantity(0);
+    }
+    if (props.quantity > 10) {
+      props.setQuantity(10);
+    }
+  };
+
+  resetNumber();
   return (
     <MainDiv>
       <Text>
