@@ -56,6 +56,8 @@ const MainDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   width: inherit;
+  min-width: 375px;
+  max-width: 600px;
   @media screen and (min-width: 1440px) {
     max-width: 445px;
   }
@@ -177,6 +179,9 @@ const AddBtn = styled.button`
   @media screen and (min-width: 1440px) {
     width: 272px;
     cursor: pointer;
+    &:hover {
+      background-color: #ffab6a;
+    }
   }
 `;
 const AddToCartDiv = styled.div`

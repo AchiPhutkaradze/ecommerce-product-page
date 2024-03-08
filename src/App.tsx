@@ -35,11 +35,14 @@ const Container = styled.div`
   display: block;
   padding: 0;
   gap: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   @media screen and (min-width: 1440px) {
-    display: flex;
     padding: 0 48px;
     gap: 120px;
     position: relative;
-    justify-content: center;
+    flex-direction: row;
   }
 `;

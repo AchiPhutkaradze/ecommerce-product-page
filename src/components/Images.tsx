@@ -170,6 +170,9 @@ export default function Images(props: Types) {
 const ImagesDiv = styled.div`
   display: flex;
   align-items: center;
+  min-width: 375px;
+  max-width: 600px;
+  position: relative;
   @media screen and (min-width: 1440px) {
     margin-top: 90px;
     position: relative;
@@ -179,6 +182,9 @@ const ImagesDiv = styled.div`
 `;
 const Product = styled.img`
   width: 100%;
+  @media screen and (min-width: 968px) {
+    border-radius: 3%;
+  }
   @media screen and (min-width: 1440px) {
     border-radius: 5%;
     cursor: zoom-in;
