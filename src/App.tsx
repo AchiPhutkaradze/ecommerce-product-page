@@ -5,13 +5,12 @@ import Content from "./components/Content";
 import styled from "styled-components";
 function App() {
   const [quantity, setQuantity] = useState<number>(0);
-  const [addToCart, setAddToCart] = useState(true);
+  const [addToCart, setAddToCart] = useState(false);
 
   return (
     <>
       <Header
         quantity={quantity}
-        setQuantity={setQuantity}
         addToCart={addToCart}
         setAddToCart={setAddToCart}
       />
@@ -19,13 +18,11 @@ function App() {
         <Images
           quantity={quantity}
           setQuantity={setQuantity}
-          addToCart={addToCart}
           setAddToCart={setAddToCart}
         />
         <Content
           quantity={quantity}
           setQuantity={setQuantity}
-          addToCart={addToCart}
           setAddToCart={setAddToCart}
         />
       </Container>

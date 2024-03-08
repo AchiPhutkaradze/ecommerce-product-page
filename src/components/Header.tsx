@@ -7,7 +7,6 @@ import { useState } from "react";
 
 interface Types {
   quantity: number;
-  setQuantity: React.Dispatch<React.SetStateAction<number>>;
   addToCart: boolean;
   setAddToCart: React.Dispatch<React.SetStateAction<boolean>>;
 }

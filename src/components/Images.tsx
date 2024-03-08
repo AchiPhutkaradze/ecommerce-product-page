@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import { styled, StyleSheetManager } from "styled-components";
 import ProductOne from "../../public/assets/image-product-1.jpg";
 import Arrow from "../../public/assets/icon-next.svg";
 import ProductTwo from "../../public/assets/image-product-2.jpg";
@@ -14,13 +14,28 @@ import closeIcon from "../../public/assets/icon-close.svg";
 interface Types {
   quantity: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
-  addToCart: boolean;
   setAddToCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function Images(props: Types) {
   const [slide, setSlide] = useState<number>(1);
   const [zoomedImg, setZoomedImg] = useState<boolean>(false);
-  console.log(zoomedImg);
+  const [lastSelectedSlideNumber, setLastSelectedSlideNumber] =
+    useState<number>(1);
+
+  //media query
+  const [bigResolution, setBigResolution] = useState<boolean>(
+    window.matchMedia("(min-width: 1440px)").matches
+  );
+  const mediaQuery = window.matchMedia("(min-width: 1440px)");
+  useEffect(() => {
+    const resolutionChange = (event: MediaQueryListEvent | MediaQueryList) => {
+      setBigResolution(event.matches);
+    };
+    mediaQuery.addListener(resolutionChange);
+    resolutionChange(mediaQuery);
+  }, []);
+
+  //images
   const productImages = [ProductOne, ProductTwo, ProductThree, ProductFour];
 
   //reset quantity
@@ -51,6 +66,7 @@ export default function Images(props: Types) {
   }
   resetAddToCart();
 
+  //
   function StopScrolling() {
     if (zoomedImg === true) {
       document.body.style.overflow = "hidden";
@@ -59,85 +75,95 @@ export default function Images(props: Types) {
     }
   }
   StopScrolling();
+
   return (
     <>
-      <Fullscreen zoom={zoomedImg} />
-      <ImagesDiv>
-        <Product
-          src={productImages[slide - 1]}
-          onClick={() => setZoomedImg(true)}
-        />
-        {zoomedImg === true && (
-          <>
-            <Zoom zoom={zoomedImg}>
-              <IconClose src={closeIcon} onClick={() => setZoomedImg(false)} />
-              <ButtonsForZoomedImg>
-                <LeftSLiderBtn onClick={() => setSlide(slide - 1)}>
-                  <img src={Arrow} alt="" />
-                </LeftSLiderBtn>
-                <RightSLiderBtn onClick={() => setSlide(slide + 1)}>
-                  {" "}
-                  <img src={Arrow} alt="" />
-                </RightSLiderBtn>
-              </ButtonsForZoomedImg>
-              <Product src={productImages[slide - 1]} />
-              <SmallImages>
-                <SmallImage
-                  slide1={slide}
-                  src={FirstSmallProduct}
-                  onClick={() => setSlide(1)}
-                />
-                <SmallImage
-                  slide2={slide}
-                  src={SecondSmallProduct}
-                  onClick={() => setSlide(2)}
-                />
-                <SmallImage
-                  slide3={slide}
-                  src={ThirdSmallProduct}
-                  onClick={() => setSlide(3)}
-                />
-                <SmallImage
-                  slide4={slide}
-                  src={FourthSmallProduct}
-                  onClick={() => setSlide(4)}
-                />
-              </SmallImages>
-            </Zoom>
-          </>
-        )}{" "}
-        <Buttons>
-          <LeftSLiderBtn onClick={() => setSlide(slide - 1)}>
-            <img src={Arrow} alt="" />
-          </LeftSLiderBtn>
-          <RightSLiderBtn onClick={() => setSlide(slide + 1)}>
-            {" "}
-            <img src={Arrow} alt="" />
-          </RightSLiderBtn>
-        </Buttons>
-        <SmallImages>
-          <SmallImage
-            slide1={slide}
-            src={FirstSmallProduct}
-            onClick={() => setSlide(1)}
+      <StyleSheetManager shouldForwardProp={(prop) => prop !== "zoom"}>
+        <Fullscreen zoom={zoomedImg} />
+        <ImagesDiv>
+          <Product
+            src={
+              zoomedImg === false
+                ? productImages[slide - 1]
+                : productImages[lastSelectedSlideNumber - 1]
+            }
+            onClick={() =>
+              bigResolution === true
+                ? (setZoomedImg(true), setLastSelectedSlideNumber(slide))
+                : null
+            }
           />
-          <SmallImage
-            slide2={slide}
-            src={SecondSmallProduct}
-            onClick={() => setSlide(2)}
-          />
-          <SmallImage
-            slide3={slide}
-            src={ThirdSmallProduct}
-            onClick={() => setSlide(3)}
-          />
-          <SmallImage
-            slide4={slide}
-            src={FourthSmallProduct}
-            onClick={() => setSlide(4)}
-          />
-        </SmallImages>
-      </ImagesDiv>
+          {zoomedImg === true && (
+            <>
+              <Zoom zoom={zoomedImg}>
+                <IconClose
+                  src={closeIcon}
+                  onClick={() => setZoomedImg(false)}
+                />
+                <ButtonsForZoomedImg>
+                  <LeftSLiderBtn onClick={() => setSlide(slide - 1)}>
+                    <img src={Arrow} alt="" />
+                  </LeftSLiderBtn>
+                  <RightSLiderBtn onClick={() => setSlide(slide + 1)}>
+                    {" "}
+                    <img src={Arrow} alt="" />
+                  </RightSLiderBtn>
+                </ButtonsForZoomedImg>
+                <Product src={productImages[slide - 1]} />
+                <SmallImages>
+                  <SmallImage
+                    src={FirstSmallProduct}
+                    onClick={() => setSlide(1)}
+                  />
+                  <SmallImage
+                    src={SecondSmallProduct}
+                    onClick={() => setSlide(2)}
+                  />
+                  <SmallImage
+                    src={ThirdSmallProduct}
+                    onClick={() => setSlide(3)}
+                  />
+                  <SmallImage
+                    src={FourthSmallProduct}
+                    onClick={() => setSlide(4)}
+                  />
+                </SmallImages>
+              </Zoom>
+            </>
+          )}{" "}
+          <Buttons>
+            <LeftSLiderBtn onClick={() => setSlide(slide - 1)}>
+              <img src={Arrow} alt="" />
+            </LeftSLiderBtn>
+            <RightSLiderBtn onClick={() => setSlide(slide + 1)}>
+              {" "}
+              <img src={Arrow} alt="" />
+            </RightSLiderBtn>
+          </Buttons>
+          <SmallImages>
+            <SmallImage
+              slide1={slide}
+              src={FirstSmallProduct}
+              onClick={() => setSlide(1)}
+            />
+            <SmallImage
+              slide2={slide}
+              src={SecondSmallProduct}
+              onClick={() => setSlide(2)}
+            />
+            <SmallImage
+              slide3={slide}
+              src={ThirdSmallProduct}
+              onClick={() => setSlide(3)}
+            />
+            <SmallImage
+              slide4={slide}
+              src={FourthSmallProduct}
+              onClick={() => setSlide(4)}
+            />
+          </SmallImages>
+        </ImagesDiv>
+      </StyleSheetManager>
     </>
   );
 }
@@ -267,13 +293,13 @@ const IconClose = styled.img`
 `;
 const Fullscreen = styled.div<{ zoom: boolean }>`
   @media screen and (min-width: 1440px) {
-    opacity: ${(props) => (props.zoom === true ? "0.5" : "1")};
-    background-color: ${(props) => (props.zoom === true ? "black" : "")};
+    opacity: ${(props) => (props.zoom ? "0.5" : "1")};
+    background-color: ${(props) => props.zoom && "black"};
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: ${(props) => (props.zoom === true ? "100%" : "")};
+    height: ${(props) => props.zoom && "100%"};
     z-index: 3;
   }
 `;

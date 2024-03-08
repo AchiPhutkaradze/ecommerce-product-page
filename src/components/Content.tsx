@@ -5,7 +5,6 @@ import CartIcon from "../../public/assets/icon-cart.svg";
 interface Types {
   quantity: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
-  addToCart: boolean;
   setAddToCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function Content(props: Types) {
